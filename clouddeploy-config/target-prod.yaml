@@ -17,12 +17,5 @@ kind: Target
 metadata:
   name: prod
 description: Prod Cluster (GCP)
-requireApproval: true
 gke:
-  cluster: projects/galloro-demos/locations/europe-west1-b/clusters/prod-cluster
-#executionConfigs:
-#- privatePool:
-#    workerPool: projects/galloro-demos/locations/europe-west1/workerPools/private-eu
-#  usages:
-#  - RENDER
-#  - DEPLOY
+  cluster: projects/galloro-demos/locations/europe-west1-b/clusters/prod-cluster #Change to map to your Prod GKE cluster location, project and name
