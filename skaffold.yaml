@@ -1,0 +1,26 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+build:
+  artifacts:
+  - image: europe-docker.pkg.dev/galloro-demos/cloudbuilds/skaffold-helm #Replace with your Artifact Registry repository
+profiles:
+  - name: qa
+    deploy:
+      helm:
+        releases:
+        - name: skaffold-helm
+          chartPath: charts
+          artifactOverrides:
+            image: europe-docker.pkg.dev/galloro-demos/cloudbuilds/skaffold-helm #Replace with your Artifact Registry repository
+          setValues:
+            replicaCount: 1
+  - name: prod
+    deploy:
+      helm:
+        releases:
+        - name: skaffold-helm
+          chartPath: charts
+          artifactOverrides:
+            image: europe-docker.pkg.dev/galloro-demos/cloudbuilds/skaffold-helm #Replace with your Artifact Registry repository
+          setValues:
+            replicaCount: 3
