@@ -16,12 +16,6 @@ apiVersion: deploy.cloud.google.com/v1beta1
 kind: Target
 metadata:
   name: qa
-description: QA Cluster (GCP)
+description: QA Cluster
 gke:
-  cluster: projects/galloro-demos/locations/europe-west1-b/clusters/qa-cluster
-#executionConfigs:
-#- privatePool:
-#    workerPool: projects/galloro-demos/locations/europe-west1/workerPools/private-eu
-#  usages:
-#  - RENDER
-#  - DEPLOY
+  cluster: projects/galloro-demos/locations/europe-west1-b/clusters/qa-cluster #Change to map to your QA GKE cluster location, project and name

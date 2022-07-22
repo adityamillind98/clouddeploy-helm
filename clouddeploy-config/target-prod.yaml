@@ -16,6 +16,6 @@ apiVersion: deploy.cloud.google.com/v1beta1
 kind: Target
 metadata:
   name: prod
-description: Prod Cluster (GCP)
+description: Prod Cluster
 gke:
   cluster: projects/galloro-demos/locations/europe-west1-b/clusters/prod-cluster #Change to map to your Prod GKE cluster location, project and name
