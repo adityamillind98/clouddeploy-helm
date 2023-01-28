@@ -1,0 +1,30 @@
+main:
+  params: [event]
+  steps:
+    - init:
+        assign:
+          - project_id: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
+          - location_id: "global"
+    - check_pubsub_message:
+        switch:
+          - condition: ${event.data.message.attributes.Action == "Required"}
+            next: approve
+        next: end
+    - approve:
+        call: googleapis.cloudbuild.v1.projects.builds.create
+        args:
+          projectId: ${project_id}
+          parent: ${"projects/" + project_id + "/locations/" + location_id}
+          body:
+            steps:
+            - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+              entrypoint: gcloud
+              args:
+                [
+                  "deploy", "rollouts", "approve", "${event.data.message.attributes.Rollout}",
+                  "--delivery-pipeline", "${event.data.message.attributes.DeliveryPipelineId}",
+                  "--region", "${event.data.message.attributes.Location}",
+                  "--release", "${event.data.message.attributes.ReleaseId}"
+                ]
+    - the_end:
+        return: "SUCCESS"
